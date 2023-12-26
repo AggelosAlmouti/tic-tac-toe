@@ -2,28 +2,31 @@ function createPlayer(name, symbol) {
     return { name, symbol };
 };
 
-//todo createGameBoardFuctory IIFE
-
-const gameBoard = {
-    state: [
+const gameBoard = (function () {
+    return [
         ['', '', ''],
         ['', '', ''],
         ['', '', '']
-    ],
-
-    update: function (position, symbol) {
-        this.state.splice(position, 1, symbol);
-    }
-};
-
-const gameFlow = (function () {
-
+    ];
 })();
 
+const gameBoardController = {
+    update: function (position_x, position_y, symbol) {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (i == position_x && j == position_y) {
+                    if (gameBoard[i][j] == '') {
+                        gameBoard[i][j] = symbol;
+                    };
+                };
+            };
+        };
+    },
+};
+
 const player1 = createPlayer('player1', 'x');
-const player2 = createPlayer('player2', '0');
+const player2 = createPlayer('player2', 'o');
 
-//todo splice into 2d array?
-gameBoard.update(1, 'x');
-
-console.log(gameBoard.state);
+gameBoardController.update(1, 1, 'x');
+gameBoardController.update(1, 1, 'o');
+console.log(gameBoard);
