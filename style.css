@@ -4,4 +4,28 @@ body {
     font-family: Roboto Mono, sans-serif;
     background-color: #1a1a1a;
     color: white;
+    margin: 0;
+}
+
+content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.square {
+    border: 1px solid white;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
 }

@@ -72,5 +72,3 @@ const gameBoardController = {
 
 const player1 = createPlayer('player1', 'x');
 const player2 = createPlayer('player2', 'o');
-
-console.log(gameBoardController.endGame());
