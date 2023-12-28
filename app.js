@@ -4,9 +4,9 @@ function createPlayer(name, symbol) {
 
 const gameBoard = (function () {
     return [
-        ['x', 'o', 'x'],
-        ['', 'x', ''],
-        ['x', 'o', 'x']
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
     ];
 })();
 
@@ -23,7 +23,7 @@ const gameBoardController = {
         };
     },
 
-    endGame: function () {
+    gameOver: function () {
         //check rows
         for (let i = 0; i < 3; i++) {
             let rows = '';
@@ -64,6 +64,7 @@ const gameBoardController = {
                 };
                 if (squares == 9) {
                     return null;
+                    console.log('game over');
                 };
             };
         };
@@ -72,3 +73,16 @@ const gameBoardController = {
 
 const player1 = createPlayer('player1', 'x');
 const player2 = createPlayer('player2', 'o');
+
+const squares = document.querySelectorAll('.square');
+squares.forEach(square => {
+    square.addEventListener('click', (e) => {
+        position_x = square.dataset.index[0];
+        position_y = square.dataset.index[1];
+        gameBoardController.update(position_x, position_y, 'x');
+        console.log(gameBoard);
+        //todo logic to render graphics
+        //todo fix gameOver
+        gameBoardController.gameOver();
+    });
+});
