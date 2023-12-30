@@ -48,11 +48,17 @@ const gameBoardController = {
                 };
             };
         };
-        //check diagonal
-        let diagonal = gameBoard[0][0] + gameBoard[1][1] + gameBoard[2][2];
-        if (diagonal == 'xxx') {
+        //check diagonals
+        let diagonal1 = gameBoard[0][0] + gameBoard[1][1] + gameBoard[2][2];
+        if (diagonal1 == 'xxx') {
             return 'x';
-        } else if (diagonal == 'ooo') {
+        } else if (diagonal1 == 'ooo') {
+            return 'o';
+        };
+        let diagonal2 = gameBoard[0][2] + gameBoard[1][1] + gameBoard[2][0];
+        if (diagonal2 == 'xxx') {
+            return 'x';
+        } else if (diagonal2 == 'ooo') {
             return 'o';
         };
         //check tie
@@ -75,14 +81,22 @@ const player1 = createPlayer('player1', 'x');
 const player2 = createPlayer('player2', 'o');
 
 const squares = document.querySelectorAll('.square');
+let turn = 1;
 squares.forEach(square => {
     square.addEventListener('click', (e) => {
         position_x = square.dataset.index[0];
         position_y = square.dataset.index[1];
-        gameBoardController.update(position_x, position_y, 'x');
+        if (turn % 2 == 0) {
+            symbol = player2.symbol;
+        } else {
+            symbol = player1.symbol;
+        }
+        gameBoardController.update(position_x, position_y, symbol);
+        square.innerHTML = symbol;
         console.log(gameBoard);
-        //todo logic to render graphics
-        //todo fix gameOver
-        gameBoardController.gameOver();
+        if (gameBoardController.gameOver())
+            //todo break eventlistener
+            console.log('game over!')
+        turn++;
     });
 });
