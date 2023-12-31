@@ -15,9 +15,7 @@ const gameBoardController = {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (i == position_x && j == position_y) {
-                    if (gameBoard[i][j] == '') {
-                        gameBoard[i][j] = symbol;
-                    };
+                    gameBoard[i][j] = symbol;
                 };
             };
         };
@@ -62,17 +60,16 @@ const gameBoardController = {
             return 'o';
         };
         //check tie
+        let full = 0;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                let squares = 0;
-                if (gameBoard[i][j] == '') {
-                    squares += 1;
-                };
-                if (squares == 9) {
-                    return null;
-                    console.log('game over');
+                if (gameBoard[i][j] != '') {
+                    full += 1;
                 };
             };
+        };
+        if (full == 9) {
+            return 'tie';
         };
     },
 };
@@ -82,21 +79,35 @@ const player2 = createPlayer('player2', 'o');
 
 const squares = document.querySelectorAll('.square');
 let turn = 1;
+let stop = false;
 squares.forEach(square => {
-    square.addEventListener('click', (e) => {
-        position_x = square.dataset.index[0];
-        position_y = square.dataset.index[1];
-        if (turn % 2 == 0) {
-            symbol = player2.symbol;
-        } else {
-            symbol = player1.symbol;
-        }
-        gameBoardController.update(position_x, position_y, symbol);
-        square.innerHTML = symbol;
-        console.log(gameBoard);
-        if (gameBoardController.gameOver())
-            //todo break eventlistener
-            console.log('game over!')
-        turn++;
-    });
+    if (!stop) {
+        square.addEventListener('click', (e) => {
+            if (!stop) {
+                position_x = square.dataset.index[0];
+                position_y = square.dataset.index[1];
+                if (turn % 2 == 0) {
+                    symbol = player2.symbol;
+                } else {
+                    symbol = player1.symbol;
+                }
+                if (square.innerHTML == '') {
+                    gameBoardController.update(position_x, position_y, symbol);
+                    square.innerHTML = symbol;
+                    console.log(gameBoard);
+                    let winner;
+                    if (winner = gameBoardController.gameOver()) {
+                        stop = true;
+                        if (winner == 'tie') {
+                            console.log('it\'s a tie!');
+                        } else {
+                            console.log('game over!');
+                            console.log(`the winner is ${winner}`);
+                        };
+                    };
+                    turn++;
+                };
+            };
+        });
+    };
 });
