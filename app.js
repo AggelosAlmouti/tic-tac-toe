@@ -74,6 +74,11 @@ const gameBoardController = {
     },
 };
 
+//todo
+// const displayController = {
+
+// }
+
 const player1 = createPlayer('player1', 'x');
 const player2 = createPlayer('player2', 'o');
 
@@ -94,7 +99,6 @@ squares.forEach(square => {
                 if (square.innerHTML == '') {
                     gameBoardController.update(position_x, position_y, symbol);
                     square.innerHTML = symbol;
-                    console.log(gameBoard);
                     let winner;
                     if (winner = gameBoardController.gameOver()) {
                         stop = true;
