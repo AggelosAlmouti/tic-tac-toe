@@ -82,6 +82,9 @@ const gameBoardController = {
 const startButton = document.querySelector('button');
 startButton.addEventListener('click', () => {
     startButton.innerHTML = 'RESTART';
+    startButton.addEventListener('click', () => {
+        location.reload();
+    });
 
     let name1 = document.querySelector('.player1').value;
     if (name1 == '')
@@ -93,6 +96,7 @@ startButton.addEventListener('click', () => {
     const player2 = createPlayer(name2, 'o');
 
     const squares = document.querySelectorAll('.square');
+    const results = document.querySelector('.results');
     let turn = 1;
     let stop = false;
     squares.forEach(square => {
@@ -112,12 +116,17 @@ startButton.addEventListener('click', () => {
                         let winner;
                         if (winner = gameBoardController.gameOver()) {
                             stop = true;
-                            if (winner == 'tie') {
-                                console.log('it\'s a tie!');
+                            if (winner == player1.symbol) {
+                                winner = player1.name;
                             } else {
-                                console.log('game over!');
-                                console.log(`the winner is ${winner}`);
+                                winner = player2.name;
+                            }
+                            if (winner == 'tie') {
+                                results.innerHTML = 'TIE GAME!';
+                            } else {
+                                results.innerHTML = `THE WINNER IS ${winner}!`;
                             };
+                            results.style.opacity = '1';
                         };
                         turn++;
                     };
@@ -128,6 +137,5 @@ startButton.addEventListener('click', () => {
 
 });
 
-//todo display winners name
-//todo restart button
 //todo animations
+//todo hide code in functions
