@@ -124,7 +124,7 @@ startButton.addEventListener('click', () => {
                             if (winner == 'tie') {
                                 results.innerHTML = 'TIE GAME!';
                             } else {
-                                results.innerHTML = `THE WINNER IS ${winner}!`;
+                                results.innerHTML = `${winner} WINS!`;
                             };
                             results.style.opacity = '1';
                         };
