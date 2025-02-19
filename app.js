@@ -71,6 +71,7 @@ const gameBoardController = {
         if (full == 9) {
             return 'tie';
         };
+        return null;
     },
 };
 
