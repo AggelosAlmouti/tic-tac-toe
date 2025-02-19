@@ -60,17 +60,10 @@ const gameBoardController = {
             return 'o';
         };
         //check tie
-        let full = 0;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (gameBoard[i][j] != '') {
-                    full += 1;
-                };
-            };
-        };
-        if (full == 9) {
-            return 'tie';
-        };
+        let full = gameBoard.flat().every(cell => cell !== '');
+        if (full) return 'tie';
+
+        // Explicitly return null if game is not over
         return null;
     },
 };
